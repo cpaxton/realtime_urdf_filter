@@ -4,6 +4,8 @@ project(realtime_urdf_filter)
 # for future reference. you can ignore this.
 #cmake_policy(SET CMP0012 NEW)
 
+find_package(cmake_modules REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS 
   urdf
   tf
@@ -12,9 +14,10 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   nodelet
   image_transport
-  urdfdom_headers
   moveit_ros_perception
   )
+
+find_package(Eigen REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include)
@@ -78,7 +81,6 @@ install(DIRECTORY include/ DESTINATION include)
 find_package(moveit_ros_perception)
 
 if(moveit_ros_perception_FOUND)
-  find_package(Eigen REQUIRED)
   set(MOVEIT_LIB_NAME realtime_urdf_filter_moveit_octomap_updater)
 
   include_directories(${Eigen_INCLUDE_DIRS} ${moveit_ros_perception_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
